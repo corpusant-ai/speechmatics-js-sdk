@@ -72,6 +72,14 @@ export class PCMPlayer extends TypedEventTarget<{
     return this._analyser;
   }
 
+  get isPlaying(): boolean {
+    return this.scheduledSources.length > 0;
+  }
+
+  get remainingTime(): number {
+    return Math.max(0, this.playbackTime - this.audioContext.currentTime);
+  }
+
   interrupt() {
     for (const source of this.scheduledSources) {
       source.stop();
